@@ -1,24 +1,30 @@
 #ifndef HEAP_H
 #define HEAP_H
 
+struct MinHeapNode {
+    int vertex;
+    int key;
+};
+
 class MinHeap {
 public:
     MinHeap(int capacity);
     ~MinHeap();
-    void insert(int vertex, int key);
-    int extractMin();
+
+    void insertKey(int vertex, int key);
+    MinHeapNode extractMin();
     void decreaseKey(int vertex, int newKey);
-    bool isInMinHeap(int vertex);
-    bool isEmpty();
+    bool isInMinHeap(int vertex) const;
+    bool isEmpty() const;
 
 private:
-    int* heapArray;        // Heap of vertex indices
-    int* keyArray;         // Corresponding key values
-    int* position;         // Maps vertex to its position in heap
+    MinHeapNode* heapArray;   // Array of (vertex, key) pairs
+    int* pos;                 // Maps vertex to its index in heapArray
     int capacity;
     int size;
 
-    void minHeapify(int idx);
+    void heapifyUp(int idx);
+    void heapifyDown(int idx);
 };
 
 #endif
